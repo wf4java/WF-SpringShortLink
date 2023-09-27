@@ -1,5 +1,6 @@
 package wf.spring.short_link.security;
 
+import jakarta.annotation.Nullable;
 import lombok.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,7 +11,7 @@ import java.util.Collections;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class JwtAuthentication implements Authentication {
+public class JwtAuthenticationToken implements Authentication {
 
 
     private final String jwtKey;
@@ -26,13 +27,15 @@ public class JwtAuthentication implements Authentication {
     }
 
     @Override
+    @Nullable
     public Object getDetails() {
-        return "";
+        return null;
     }
 
     @Override
+    @Nullable
     public Object getPrincipal() {
-        return "";
+        return null;
     }
 
     @Override
@@ -46,7 +49,8 @@ public class JwtAuthentication implements Authentication {
     }
 
     @Override
+    @Nullable
     public String getName() {
-        return "";
+        return null;
     }
 }

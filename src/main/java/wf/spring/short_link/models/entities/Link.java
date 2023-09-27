@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "link", indexes = {
         @Index(columnList = "person_id,id")
@@ -26,7 +28,7 @@ public class Link {
     @JoinColumn(name = "person_id", referencedColumnName = "id", nullable = false)
     private Person owner;
 
-    @Column(name = "link", nullable = false)
+    @Column(name = "link", nullable = false, length = 4096)
     private String link;
 
     @Column(name = "visits")

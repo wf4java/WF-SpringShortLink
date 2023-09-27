@@ -1,12 +1,10 @@
 package wf.spring.short_link.dto.auth;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
+import wf.spring.short_link.utils.validators.annotation.Password;
+import wf.spring.short_link.utils.validators.annotation.Username;
 
 @Getter
 @Setter
@@ -15,19 +13,18 @@ import java.util.Date;
 @ToString
 public class RegisterRequestDTO {
 
+
     @NotNull
-    //@Username
+    @Username
     private String username;
 
     @NotNull
-    @NotEmpty
     @Email
     private String email;
 
     @NotNull
-    //@Password
+    @Password
     private String password;
-
 
 
 

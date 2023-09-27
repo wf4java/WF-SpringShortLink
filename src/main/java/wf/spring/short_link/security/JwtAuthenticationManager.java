@@ -16,7 +16,7 @@ public class JwtAuthenticationManager implements AuthenticationManager {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if(!(authentication instanceof JwtAuthentication)) throw new AuthenticationServiceException("Authentication is not JwtAuthentication");
+        if(!(authentication instanceof JwtAuthenticationToken)) throw new AuthenticationServiceException("Authentication is not JwtAuthenticationToken");
 
         return jwtAuthService.getAuthenticatedOrFail(((String) authentication.getCredentials()));
     }

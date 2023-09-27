@@ -15,7 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFilter;
 import wf.spring.short_link.security.JwtAuthenticationConverter;
 import wf.spring.short_link.security.JwtAuthenticationManager;
-import wf.spring.short_link.security.AuthenticationSuccessHandlerImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -24,8 +23,6 @@ public class WebSecurityConfig {
 
     private final JwtAuthenticationConverter jwtAuthenticationConverter;
     private final JwtAuthenticationManager jwtAuthenticationManager;
-    private final AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
-
 
 
     @Bean
@@ -52,14 +49,7 @@ public class WebSecurityConfig {
     }
     @Bean
     public AuthenticationFilter jwtAuthenticationFilter() {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(jwtAuthenticationManager, jwtAuthenticationConverter);
-
-        authenticationFilter.setSuccessHandler(authenticationSuccessHandler);
-        //authenticationFilter.setFailureHandler();
-        //authenticationFilter.awr(Ordered.HIGHEST_PRECEDENCE); // Set the order here
-
-
-        return authenticationFilter;
+        return new AuthenticationFilter(jwtAuthenticationManager, jwtAuthenticationConverter);
     }
 
 

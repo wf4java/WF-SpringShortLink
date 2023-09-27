@@ -9,10 +9,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 public class JwtProperties {
 
-    private String secretKey;
+    private String secretKey = "secret_key_jADj34dDdfO235lzXc";
 
-    private int expirationDays;
+    private int expirationDays = 7;
 
-    private String issuer;
+    private String issuer = "spring-app";
 
 }

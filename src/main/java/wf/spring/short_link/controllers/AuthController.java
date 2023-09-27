@@ -49,6 +49,7 @@ public class AuthController {
         personService.save(person);
     }
 
+
     @ExceptionHandler
     public ResponseEntity<ErrorMessageResponseDTO> authenticationExceptionHandler(AuthenticationException e){
         return new ResponseEntity<>(new ErrorMessageResponseDTO(e), HttpStatus.UNAUTHORIZED);
