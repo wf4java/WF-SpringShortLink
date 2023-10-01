@@ -3,6 +3,7 @@ package wf.spring.short_link;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import wf.spring.short_link.utils.EncodeUtils;
 
 
 @SpringBootApplication

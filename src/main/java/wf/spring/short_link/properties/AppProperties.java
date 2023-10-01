@@ -13,5 +13,7 @@ public class AppProperties {
 
     private EncodeUtils.Encoder linkEncodeRadix = EncodeUtils.Encoder.RADIX_62;
 
+    private int shortLinkMaxLength = 16;
+
 
 }

@@ -20,6 +20,10 @@ public class EncodeUtils {
         return appProperties.getLinkEncodeRadix().decode(encodedId);
     }
 
+    public boolean isValid(String s) {
+        return appProperties.getLinkEncodeRadix().isValid(s);
+    }
+
 
     public enum Encoder {
 
@@ -50,9 +54,13 @@ public class EncodeUtils {
             return decode(s, this);
         }
 
+        public boolean isValid(String s) {
+            return isValid(s, this);
+        }
 
-        public static String encode(long l, Encoder encodeSymbols) {
-            String symbols = encodeSymbols.getSymbols();
+
+        public static String encode(long l, Encoder encoder) {
+            String symbols = encoder.getSymbols();
 
             StringBuilder sb = new StringBuilder();
             while (l > 0) {
@@ -62,8 +70,8 @@ public class EncodeUtils {
             return sb.reverse().toString();
         }
 
-        public static long decode(String s, Encoder encodeSymbols) {
-            String symbols = encodeSymbols.getSymbols();
+        public static long decode(String s, Encoder encoder) {
+            String symbols = encoder.getSymbols();
 
             long result = 0;
             for (int i = 0; i < s.length(); i++) {
@@ -72,6 +80,18 @@ public class EncodeUtils {
                 result = result * symbols.length() + digit;
             }
             return result;
+        }
+
+        public static boolean isValid(String s, Encoder encoder) {
+            String allowedSymbols = encoder.getSymbols();
+
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (allowedSymbols.indexOf(c) == -1) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

@@ -9,7 +9,7 @@ import wf.spring.short_link.utils.validators.annotation.Link;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CreateLinkRequestDTO {
+public class LinkCreateRequestDTO {
 
     @NotNull
     @Link

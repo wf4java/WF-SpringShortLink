@@ -8,35 +8,78 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import wf.spring.short_link.dto.ErrorMessageResponseDTO;
-import wf.spring.short_link.dto.app.link.CreateLinkRequestDTO;
-import wf.spring.short_link.dto.app.link.LinkResponseDTO;
+import wf.spring.short_link.dto.app.link.*;
 import wf.spring.short_link.mappers.LinkMapper;
 import wf.spring.short_link.models.entities.Link;
 import wf.spring.short_link.models.entities.Person;
 import wf.spring.short_link.models.exceptions.*;
 import wf.spring.short_link.services.LinkService;
+import wf.spring.short_link.utils.EncodeUtils;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/link")
 @RequiredArgsConstructor
 public class LinkController {
 
+    private final EncodeUtils encodeUtils;
     private final LinkService linkService;
     private final LinkMapper linkMapper;
 
 
 
     @PostMapping("/create")
-    public LinkResponseDTO create(@RequestBody @Valid CreateLinkRequestDTO createLinkRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
+    public LinkResponseDTO create(@RequestBody @Valid LinkCreateRequestDTO linkCreateRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
         if(bindingResult.hasErrors())
             throw new BadRequestException(bindingResult);
 
-        Link link = linkService.create(principal.getId(), createLinkRequestDTO.getLink());
+        Link link = linkService.create(principal.getId(), linkCreateRequestDTO.getLink());
+
+        return linkMapper.toLinkResponseDTO(link);
+    }
+
+    @PostMapping("/delete")
+    public void delete(@RequestBody @Valid LinkDeleteRequestDTO linkDeleteRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
+        if(bindingResult.hasErrors())
+            throw new BadRequestException(bindingResult);
+
+        linkService.deleteById(linkDeleteRequestDTO.getId(), principal.getId());
+    }
+
+    @GetMapping("/get_my")
+    public List<LinkResponseDTO> getMyLinks(@RequestBody @Valid LinkGetMyRequestDTO linkGetMyRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
+        if(bindingResult.hasErrors())
+            throw new BadRequestException(bindingResult);
+
+        List<Link> myLinks = linkService.findAllNextByOwnerIdAndLinkOffset(principal.getId(),
+                linkGetMyRequestDTO.getOffSetLinkId(), linkGetMyRequestDTO.getLimit());
+
+        return linkMapper.toLinkResponseDTOList(myLinks);
+    }
+
+
+    @GetMapping("/get_by_short_link")
+    public LinkResponseDTO getByShortLink(@RequestBody @Valid LinkGetByShortLinkRequestDTO linkGetByShortLinkRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
+        if(bindingResult.hasErrors())
+            throw new BadRequestException(bindingResult);
+
+        long id = encodeUtils.decode(linkGetByShortLinkRequestDTO.getShortLink());
+        Link link = linkService.getById(id);
 
         return linkMapper.toLinkResponseDTO(link);
     }
 
 
+//    @GetMapping("/get_by_id")
+//    public LinkResponseDTO getById(@RequestBody @Valid LinkGetByIdRequestDTO linkGetByIdRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
+//        if(bindingResult.hasErrors())
+//            throw new BadRequestException(bindingResult);
+//
+//        Link link = linkService.getById(linkGetByIdRequestDTO.getId());
+//
+//        return linkMapper.toLinkResponseDTO(link);
+//    }
 
 
 
