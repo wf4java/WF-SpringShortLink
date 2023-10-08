@@ -16,6 +16,7 @@ import wf.spring.short_link.models.entities.Person;
 import wf.spring.short_link.models.exceptions.*;
 import wf.spring.short_link.services.JwtAuthService;
 import wf.spring.short_link.services.PersonService;
+import wf.spring.short_link.utils.validators.PersonRegisterValidator;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -25,8 +26,10 @@ public class AuthController {
     private final JwtAuthService jwtAuthService;
     private final PersonMapper personMapper;
     private final PersonService personService;
+    private final PersonRegisterValidator personRegisterValidator;
 
-    @PostMapping("/login")
+
+    @PostMapping("/jwt")
     public JwtTokenResponseDTO login(@RequestBody @Valid AuthenticationRequestDTO authenticationRequestDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             throw new BadRequestException(bindingResult);
@@ -41,13 +44,14 @@ public class AuthController {
             throw new BadRequestException(bindingResult);
 
         Person person = personMapper.toPerson(registerRequestDTO);
-        //personRegisterValidator.validate(person, bindingResult);
+        personRegisterValidator.validate(person, bindingResult);
 
         if(bindingResult.hasErrors())
             throw new BadRequestException(bindingResult);
 
         personService.save(person);
     }
+
 
 
     @ExceptionHandler

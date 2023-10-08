@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import wf.spring.short_link.utils.validators.annotation.LongId;
 
 @RequiredArgsConstructor
-public class LongIdValidator  implements ConstraintValidator<LongId, Long> {
+public class LongIdValidator implements ConstraintValidator<LongId, Long> {
 
     @Override
     public boolean isValid(Long id, ConstraintValidatorContext context) {

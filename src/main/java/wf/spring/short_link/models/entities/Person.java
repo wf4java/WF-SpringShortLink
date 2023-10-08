@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.security.Principal;
 import java.util.Date;
 
 @Entity
@@ -16,7 +17,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Person implements Cloneable {
+public class Person implements Cloneable, Principal {
 
 
     @Id
@@ -41,4 +42,8 @@ public class Person implements Cloneable {
         try {return (Person) super.clone();} catch (CloneNotSupportedException e) {throw new RuntimeException(e);}
     }
 
+    @Override
+    public String getName() {
+        return username;
+    }
 }

@@ -4,6 +4,7 @@ package wf.spring.short_link.controllers;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -60,26 +61,17 @@ public class LinkController {
 
 
     @GetMapping("/get_by_short_link")
-    public LinkResponseDTO getByShortLink(@RequestBody @Valid LinkGetByShortLinkRequestDTO linkGetByShortLinkRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
+    public LinkResponseDTO getByShortLink(@RequestBody @Valid LinkGetByShortLinkRequestDTO linkGetByShortLinkRequestDTO, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             throw new BadRequestException(bindingResult);
 
-        long id = encodeUtils.decode(linkGetByShortLinkRequestDTO.getShortLink());
-        Link link = linkService.getById(id);
+        Link link = linkService.getById(encodeUtils.decode(linkGetByShortLinkRequestDTO.getShortLink()));
+        linkService.addVisit(link.getId());
 
         return linkMapper.toLinkResponseDTO(link);
     }
 
 
-//    @GetMapping("/get_by_id")
-//    public LinkResponseDTO getById(@RequestBody @Valid LinkGetByIdRequestDTO linkGetByIdRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
-//        if(bindingResult.hasErrors())
-//            throw new BadRequestException(bindingResult);
-//
-//        Link link = linkService.getById(linkGetByIdRequestDTO.getId());
-//
-//        return linkMapper.toLinkResponseDTO(link);
-//    }
 
 
 

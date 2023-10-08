@@ -1,5 +1,7 @@
 package wf.spring.short_link.mappers;
 
+import jakarta.validation.constraints.NotNull;
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 import wf.spring.short_link.dto.auth.RegisterRequestDTO;
 import wf.spring.short_link.models.entities.Person;
@@ -8,7 +10,7 @@ import wf.spring.short_link.models.entities.Person;
 public class PersonMapper {
 
 
-    public Person toPerson(RegisterRequestDTO registerRequestDTO) {
+    public Person toPerson(@NonNull RegisterRequestDTO registerRequestDTO) {
         Person person = new Person();
 
         person.setUsername(registerRequestDTO.getUsername());

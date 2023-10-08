@@ -34,8 +34,7 @@ public class LinkService {
 
     @Transactional
     public void addVisit(long id) {
-
-
+        linkRepository.addOneVisitById(id);
     }
 
     @Transactional

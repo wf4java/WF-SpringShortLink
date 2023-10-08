@@ -13,6 +13,8 @@ public class EncodeUtils {
 
 
     public String encode(long id) {
+        if(id <= 0) throw new IllegalArgumentException("Id cannot be less than or equal to 0");
+
         return appProperties.getLinkEncodeRadix().encode(id);
     }
 

@@ -43,7 +43,6 @@ public class JwtAuthService {
             throw new BadCredentialsException("Password not valid");
 
         if (!personDetails.isEnabled()) throw new DisabledException("This account not activated");
-
         return generateTokenFromId(personDetails.getPerson().getId());
     }
 
