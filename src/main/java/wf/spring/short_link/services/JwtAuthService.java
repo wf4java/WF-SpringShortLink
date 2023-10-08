@@ -27,15 +27,7 @@ public class JwtAuthService {
     private final JwtProperties jwtProperties;
 
 
-    public PersonDetails validateForActive(String login, String password) throws AuthenticationException {
-        PersonDetails personDetails = personDetailsService.loadUserByUsername(login);
-        if (!passwordEncoder.matches(password, personDetails.getPassword()))
-            throw new BadCredentialsException("Password not valid");
 
-        if (personDetails.isEnabled()) throw new AuthenticationServiceException("This account already activated");
-
-        return personDetails;
-    }
 
     public String validateAndGenerateToken(String username, String password) throws AuthenticationException {
         PersonDetails personDetails = personDetailsService.loadUserByUsername(username);
@@ -46,16 +38,6 @@ public class JwtAuthService {
         return generateTokenFromId(personDetails.getPerson().getId());
     }
 
-    public boolean tokenIsValid(final String jwtToken) {
-        if (jwtToken == null) return false;
-        try {
-            validateTokenAndRetrieveSubjectToId(jwtToken);
-        } catch (JWTVerificationException exception) {
-            return false;
-        }
-
-        return true;
-    }
 
     public UsernamePasswordAuthenticationToken getAuthenticatedOrFail(final String jwtToken) throws AuthenticationException {
         if (jwtToken == null)
