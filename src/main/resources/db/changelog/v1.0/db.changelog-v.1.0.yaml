@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: 01-changeset-person-table.yaml
+      relativeToChangelogFile: true
+
+  - include:
+      file: 10-changeset-link-table.yaml
+      relativeToChangelogFile: true
