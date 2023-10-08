@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "link", indexes = {
-        @Index(columnList = "owner_id,id")
+        @Index(columnList = "owner_id,id", unique = true)
 })
 
 @Getter
@@ -36,7 +36,7 @@ public class Link {
     @Column(name = "link", nullable = false, length = 4096)
     private String link;
 
-    @Column(name = "visits")
+    @Column(name = "visits", nullable = false)
     private long visits;
 
     @Column(name = "created_at", nullable = false)
