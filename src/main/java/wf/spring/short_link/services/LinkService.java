@@ -35,6 +35,7 @@ public class LinkService {
     @Transactional
     public void addVisit(long id) {
 
+
     }
 
     @Transactional
