@@ -13,8 +13,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 public class LinkMapperTest {
@@ -84,6 +83,6 @@ public class LinkMapperTest {
 
         List<LinkResponseDTO> result = linkMapper.toLinkResponseDTOList(links);
 
-        assertEquals(null, result);
+        assertNull(result);
     }
 }

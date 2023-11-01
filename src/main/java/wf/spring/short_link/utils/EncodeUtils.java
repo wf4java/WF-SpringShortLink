@@ -27,6 +27,7 @@ public class EncodeUtils {
     }
 
 
+    @Getter
     public enum Encoder {
 
         DIGITS("0123456789"),
@@ -39,7 +40,6 @@ public class EncodeUtils {
         RADIX_62(RADIX_36.getSymbols() + UPPER_LETTERS.getSymbols()),
         RADIX_72(RADIX_62.getSymbols() + SPECIAL_SYMBOLS.getSymbols());
 
-        @Getter
         private final String symbols;
 
         Encoder(String symbols) {

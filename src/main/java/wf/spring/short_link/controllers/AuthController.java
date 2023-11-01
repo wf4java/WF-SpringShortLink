@@ -30,7 +30,7 @@ public class AuthController {
 
 
     @PostMapping("/jwt")
-    public JwtTokenResponseDTO login(@RequestBody @Valid AuthenticationRequestDTO authenticationRequestDTO, BindingResult bindingResult){
+    public JwtTokenResponseDTO jwt(@RequestBody @Valid AuthenticationRequestDTO authenticationRequestDTO, BindingResult bindingResult){
         if(bindingResult.hasErrors())
             throw new BadRequestException(bindingResult);
 

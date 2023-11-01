@@ -24,6 +24,7 @@ public class PersonController {
     private final PersonService personService;
 
 
+    @PostMapping("/change_password")
     public void changePassword(@RequestBody @Valid PersonChangePasswordRequestDTO personChangePasswordRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
         if(bindingResult.hasErrors())
             throw new BadRequestException(bindingResult);
