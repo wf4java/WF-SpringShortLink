@@ -40,7 +40,7 @@ public class LinkController {
         return linkMapper.toLinkResponseDTO(link);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping
     public void delete(@RequestBody @Valid LinkDeleteRequestDTO linkDeleteRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
         if(bindingResult.hasErrors())
             throw new BadRequestException(bindingResult);

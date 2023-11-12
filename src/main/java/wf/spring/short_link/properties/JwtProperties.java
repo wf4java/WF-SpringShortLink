@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 public class JwtProperties {
 
-    private String secretKey = "secret_key_jADj34dDdfO235lzXc";
+    private String secretKey = "secret_key_Ez5CCYmLFTc24474cMpI37ORHYsVGppo";
 
     private int expirationDays = 7;
 
