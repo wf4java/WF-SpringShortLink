@@ -48,8 +48,8 @@ public class LinkController {
         linkService.deleteById(linkDeleteRequestDTO.getId(), principal.getId());
     }
 
-    @GetMapping("/get_my")
-    public List<LinkResponseDTO> getMyLinks(@RequestBody @Valid LinkGetMyRequestDTO linkGetMyRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
+    @GetMapping("/my")
+    public List<LinkResponseDTO> getMyLinks(@Valid LinkGetMyRequestDTO linkGetMyRequestDTO, BindingResult bindingResult, @AuthenticationPrincipal Person principal) {
         if(bindingResult.hasErrors())
             throw new BadRequestException(bindingResult);
 
@@ -60,8 +60,8 @@ public class LinkController {
     }
 
 
-    @GetMapping("/get_by_short_link")
-    public LinkResponseDTO getByShortLink(@RequestBody @Valid LinkGetByShortLinkRequestDTO linkGetByShortLinkRequestDTO, BindingResult bindingResult) {
+    @GetMapping("/by_short_link")
+    public LinkResponseDTO getByShortLink(@Valid LinkGetByShortLinkRequestDTO linkGetByShortLinkRequestDTO, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             throw new BadRequestException(bindingResult);
 
